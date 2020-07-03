@@ -1,0 +1,82 @@
+<template>
+    <div class="my-9">
+        <v-card max-width="800px" class="mx-auto">
+            <v-toolbar class="cyan lighten-2" dark flat>
+                <v-spacer></v-spacer>
+                <v-toolbar-title>Enter to App</v-toolbar-title>
+                <v-spacer></v-spacer>
+            </v-toolbar>
+            <v-container>
+                <v-row>
+                    <v-col cols="8" class="mx-auto">
+                        <v-text-field
+                            label="Email address"
+                            placeholder="Enter your email id here !!!"
+                            type="email"
+                            prepend-inner-icon="mdi-email"
+                            v-model="email"
+                            color="cyan lighten-1"
+                            hint="e.g. YourEmail@Smth.com"
+                            rounded
+                            outlined
+                        >
+                        </v-text-field>
+                    </v-col>
+                </v-row>
+                <v-row>
+                    <v-col cols="8" class="mx-auto">
+                        <v-text-field
+                            label="Password"
+                            placeholder="Provide strong password"
+                            type="password"
+                            prepend-inner-icon="mdi-lock-question"
+                            v-model="password"
+                            color="cyan lighten-1"
+                            hint="Please do not use your original password. You can use: 1a2b3c4d"
+                            rounded
+                            outlined
+                        >
+                        </v-text-field>
+                    </v-col>
+                </v-row>
+                <div>
+                    <span>{{error}}</span>
+                </div>
+                <v-row>
+                    <v-col cols="2" class="mx-auto">
+                        <v-btn ripple rounded class="cyan lighten-1 white--text" @click="login">
+                            <v-icon class="mr-3">mdi-door-open</v-icon>
+                            <span>Log In</span>
+                        </v-btn>
+                    </v-col>
+                </v-row>
+            </v-container>
+        </v-card>
+    </div>
+</template>
+
+<script>
+import AuthenticationService from '@/services/AuthenticationService'
+
+export default {
+    data() {
+        return{
+            email: '',
+            password: '',
+            error: null,
+        }
+    },
+    methods: {
+        async login() {
+            try {
+                await AuthenticationService.login({
+                    email: this.email,
+                    password: this.password
+                })
+            } catch(error) {
+                this.error = error.response.data.error
+            }
+        }
+    }
+}
+</script>

@@ -15,7 +15,7 @@
         </v-tooltip>
         <v-tooltip bottom color="cyan accent-2">
             <template v-slot:activator = "{ on }">
-                <v-btn icon x-large color="cyan" class="mx-2" v-on="on" to="Register">
+                <v-btn icon x-large color="cyan" class="mx-2" v-on="on" to="Login">
                     <v-icon>mdi-login</v-icon>
                 </v-btn>
             </template>
