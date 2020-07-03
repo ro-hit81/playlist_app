@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="my-9">
         <v-card max-width="800px" class="mx-auto">
             <v-toolbar class="cyan lighten-2" dark flat>
                 <v-spacer></v-spacer>
