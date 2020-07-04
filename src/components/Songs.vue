@@ -1,5 +1,17 @@
 <template>
-    <v-container>
+    <v-card class="mx-7 mt-4">
+        <v-toolbar class="cyan lighten-2" dark flat>
+            <v-toolbar-title>Songs</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-tooltip left color= "deep-orange">
+                <template v-slot:activator= "{ on }"> 
+                    <v-btn icon x-large color="white" class="mr-3" v-on="on" :to="{name: 'Songs-add'}">
+                        <v-icon>mdi-music-note-plus</v-icon>
+                    </v-btn>
+                </template>
+                <span>Add Song</span>
+            </v-tooltip>
+        </v-toolbar>
         <v-row justify="center">
             <v-col cols="auto" v-for="song in songs" :key="song.id">
                 <v-card class="text-center ma-3" min-width="330" dark>
@@ -27,7 +39,7 @@
                 </v-card>
             </v-col>
         </v-row>
-    </v-container>
+    </v-card>
 </template>
 
 <script>

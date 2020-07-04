@@ -1,5 +1,5 @@
 <template>
-    <v-card class="ma-3 pa-3">
+    <v-card class="mx-3 pa-3">
         <v-row justify="center">
             <v-col cols="auto" md="4">
                 <v-card  min-width="400px" max-width="600px" shaped>
@@ -15,6 +15,7 @@
                                 prepend-inner-icon="mdi-music"
                                 v-model="song.title"
                                 color="cyan lighten-1"
+                                :rules="[required]"
                                 rounded
                                 outlined
                             >
@@ -26,6 +27,7 @@
                                 prepend-inner-icon="mdi-account-music"
                                 v-model="song.artist"
                                 color="cyan lighten-1"
+                                :rules="[required]"
                                 rounded
                                 outlined
                             >
@@ -37,6 +39,7 @@
                                 prepend-inner-icon="mdi-music-clef-treble"
                                 v-model="song.genre"
                                 color="cyan lighten-1"
+                                :rules="[required]"
                                 rounded
                                 outlined
                             >
@@ -48,6 +51,7 @@
                                 prepend-inner-icon="mdi-album"
                                 v-model="song.album"
                                 color="cyan lighten-1"
+                                :rules="[required]"
                                 rounded
                                 outlined
                             >
@@ -70,6 +74,7 @@
                                 prepend-inner-icon="mdi-youtube"
                                 v-model="song.youtubeId"
                                 color="cyan lighten-1"
+                                :rules="[required]"
                                 rounded
                                 outlined
                             >
@@ -106,7 +111,10 @@
                             outlined
                         >
                         </v-textarea>
-                        <v-btn ripple large rounded class="cyan lighten-1 white--text my-1" @click="save" to="/ Songs">
+                        <div>
+                            {{error}}
+                        </div>
+                        <v-btn ripple large rounded class="cyan lighten-1 white--text my-1" @click="save">
                             <v-icon class="mr-3">mdi-music-note-plus</v-icon>
                             <span>Save Music</span>
                         </v-btn>
@@ -133,13 +141,26 @@ export default {
                 albumImage: null,
                 lyrics: null,
                 tab: null
-            }
+            },
+            error: null,
+            required: (value) => !!value || 'Cannot be blank !!!'
         }
     },
     methods: {
         async save () {
+            this.error = null
+            const areAllFieldsFilledIn = Object
+            .keys(this.song)
+            .every(key => !!this.song[key])
+            if (!areAllFieldsFilledIn) {
+                this.error = 'Please fill in all the required fields.'
+                return
+            }
             try {
                 await SongsService.post(this.song)
+                this.$router.push({
+                    name: 'Songs'
+                })
             } catch (err) {
                 console.log(err)
             }        
