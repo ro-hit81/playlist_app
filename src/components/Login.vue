@@ -1,14 +1,14 @@
 <template>
-    <div class="my-9">
-        <v-card max-width="800px" class="mx-auto">
+    <div class="my-9" align="center">
+        <v-card min-width="100px" max-width="600px" class="mx-3">
             <v-toolbar class="cyan lighten-2" dark flat>
                 <v-spacer></v-spacer>
                 <v-toolbar-title>Enter to App</v-toolbar-title>
                 <v-spacer></v-spacer>
             </v-toolbar>
-            <v-container>
+            <v-form>
                 <v-row>
-                    <v-col cols="8" class="mx-auto">
+                    <v-col cols="8" class="mx-auto mt-11">
                         <v-text-field
                             label="Email address"
                             placeholder="Enter your email id here !!!"
@@ -17,6 +17,7 @@
                             v-model="email"
                             color="cyan lighten-1"
                             hint="e.g. YourEmail@Smth.com"
+                            clearable
                             rounded
                             outlined
                         >
@@ -26,13 +27,16 @@
                 <v-row>
                     <v-col cols="8" class="mx-auto">
                         <v-text-field
+                            :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+                            :type="show ? 'text' : 'password'"
+                             @click:append="show = !show"
                             label="Password"
                             placeholder="Provide strong password"
-                            type="password"
                             prepend-inner-icon="mdi-lock-question"
                             v-model="password"
                             color="cyan lighten-1"
                             hint="Please do not use your original password. You can use: 1a2b3c4d"
+                            clearable
                             rounded
                             outlined
                         >
@@ -43,14 +47,14 @@
                     <span>{{error}}</span>
                 </div>
                 <v-row>
-                    <v-col cols="2" class="mx-auto">
+                    <v-col class="mx-auto">
                         <v-btn ripple rounded class="cyan lighten-1 white--text" @click="login">
                             <v-icon class="mr-3">mdi-door-open</v-icon>
                             <span>Log In</span>
                         </v-btn>
                     </v-col>
                 </v-row>
-            </v-container>
+            </v-form>
         </v-card>
     </div>
 </template>
@@ -64,6 +68,7 @@ export default {
             email: '',
             password: '',
             error: null,
+            show: false,
         }
     },
     methods: {
