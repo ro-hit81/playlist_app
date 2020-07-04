@@ -4,6 +4,7 @@ import Home from '@/views/Home.vue'
 import Register from '@/components/Register'
 import Login from '@/components/Login'
 import Songs from '@/components/Songs'
+import AddSongs from '@/components/AddSongs'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ Vue.use(VueRouter)
     path:'/songs',
     name: 'Songs',
     component: Songs
+  },
+  {
+    path:'/songs/add',
+    name: 'Songs-add',
+    component: AddSongs
   }
 ]
 

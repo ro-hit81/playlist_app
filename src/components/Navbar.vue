@@ -5,14 +5,14 @@
         </v-btn>
         <v-toolbar-title>Playlist App</v-toolbar-title>
         <v-toolbar-items>
-            <v-btn class="mx-5" text color="cyan accent-2" depressed to="Songs">
+            <v-btn class="mx-5" text color="cyan accent-2" depressed to="/Songs">
                 Browse
             </v-btn>
         </v-toolbar-items>
         <v-spacer></v-spacer>
         <v-tooltip bottom color="cyan accent-2"  v-if="!$store.state.isUserLoggedIn">
             <template v-slot:activator = "{ on }">
-                <v-btn icon x-large color="cyan" class="mx-2" v-on="on" to="Register">
+                <v-btn icon x-large color="cyan" class="mx-2" v-on="on" to="/Register">
                     <v-icon>mdi-account-circle</v-icon>
                 </v-btn>
             </template>
@@ -20,7 +20,7 @@
         </v-tooltip>
         <v-tooltip bottom color="cyan accent-2"  v-if="!$store.state.isUserLoggedIn">
             <template v-slot:activator = "{ on }">
-                <v-btn icon x-large color="cyan" class="mx-2" v-on="on" to="Login">
+                <v-btn icon x-large color="cyan" class="mx-2" v-on="on" to="/Login">
                     <v-icon>mdi-login</v-icon>
                 </v-btn>
             </template>
@@ -28,7 +28,7 @@
         </v-tooltip>
         <v-tooltip bottom color="cyan accent-2" v-if="$store.state.isUserLoggedIn">
             <template v-slot:activator = "{ on }">
-                <v-btn icon x-large color="cyan" class="mx-2" v-on="on" @click="logout" to="home">
+                <v-btn icon x-large color="cyan" class="mx-2" v-on="on" @click="logout" to="/home">
                     <v-icon>mdi-logout</v-icon>
                 </v-btn>
             </template>
