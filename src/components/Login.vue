@@ -49,7 +49,7 @@
                 </div>
                 <v-row>
                     <v-col class="mx-auto">
-                        <v-btn ripple rounded class="cyan lighten-1 white--text" @click="login">
+                        <v-btn ripple rounded class="cyan lighten-1 white--text" @click="login" >
                             <v-icon class="mr-3">mdi-door-open</v-icon>
                             <span>Log In</span>
                         </v-btn>
