@@ -5,6 +5,8 @@ import Register from '@/components/Register'
 import Login from '@/components/Login'
 import Songs from '@/components/Songs'
 import AddSongs from '@/components/AddSongs'
+import ViewSong from '@/components/ViewSong'
+
 
 Vue.use(VueRouter)
 
@@ -33,6 +35,11 @@ Vue.use(VueRouter)
     path:'/songs/add',
     name: 'Songs-add',
     component: AddSongs
+  },
+  {
+    path:'/songs/:songId',
+    name: 'Song',
+    component: ViewSong
   }
 ]
 

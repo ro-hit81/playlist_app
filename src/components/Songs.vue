@@ -14,7 +14,7 @@
         </v-toolbar>
         <v-row justify="center">
             <v-col cols="auto" v-for="song in songs" :key="song.id">
-                <v-card class="text-center ma-3" min-width="330" dark>
+                <v-card class="text-center ma-3" min-width="330" dark :to="{name: 'Song', params: {songId: song.id}}">
                     <v-responsive class="pt-4">
                         <v-avatar width="300" height="175" tile>
                             <img :src="song.albumImageUrl">
