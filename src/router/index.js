@@ -6,6 +6,7 @@ import Login from '@/components/Login'
 import Songs from '@/components/Songs'
 import AddSongs from '@/components/AddSongs'
 import ViewSong from '@/components/ViewSong'
+import EditSong from '@/components/EditSong'
 
 
 Vue.use(VueRouter)
@@ -40,6 +41,11 @@ Vue.use(VueRouter)
     path:'/songs/:songId',
     name: 'Song',
     component: ViewSong
+  },
+  {
+    path:'/songs/:songId/edit',
+    name: 'Song-edit',
+    component: EditSong
   }
 ]
 

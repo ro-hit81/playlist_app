@@ -128,7 +128,7 @@
                         </div>
                         <v-btn ripple large rounded class="cyan lighten-1 white--text my-1" @click="save">
                             <v-icon class="mr-3">mdi-music-note-plus</v-icon>
-                            <span>Save Music</span>
+                            <span>Save Edit</span>
                         </v-btn>
                     </v-col>
                 </v-card>
@@ -168,15 +168,28 @@ export default {
                 this.error = 'Please fill in all the required fields.'
                 return
             }
-            try {
-                await SongsService.post(this.song)
+            const songId = this.$store.state.route.params.songId
+            try{
+                await SongsService.put(this.song)
                 this.$router.push({
-                    name: 'Songs'
+                    name: 'Song',
+                    params: {
+                        songId: songId
+                    }
                 })
             } catch (err) {
                 console.log(err)
-            }        
+            }
         }
+    },
+    async mounted () {
+        try {
+            const songId = this.$store.state.route.params.songId
+            this.song = (await SongsService.show(songId)).data
+             
+        } catch (err) {
+            console.log(err)
+        }   
     }
 }
 </script>
