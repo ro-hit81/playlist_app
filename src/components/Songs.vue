@@ -3,6 +3,8 @@
         <v-toolbar class="cyan lighten-2" dark flat>
             <v-toolbar-title>Songs</v-toolbar-title>
             <v-spacer></v-spacer>
+            <search-popup></search-popup>
+            <v-spacer></v-spacer>
             <v-tooltip left color= "deep-orange">
                 <template v-slot:activator= "{ on }"> 
                     <v-btn icon x-large color="white" class="mr-3" v-on="on" :to="{name: 'Songs-add'}">
@@ -44,14 +46,27 @@
 
 <script>
 import SongsService from '@/services/SongsService'
+import SearchPopup from '@/components/SearchPopup'
+
 export default {
     data() {
         return {
             songs: null
         }
     },
+    watch: {
+        '$route.query.search': {
+            immediate: true,
+            async handler (value) {
+                this.songs = (await SongsService.index(value)).data
+            }
+        }
+    },
     async mounted() {
         this.songs = (await SongsService.index()).data
+    },
+    components: {
+        SearchPopup,
     }
     
 }
