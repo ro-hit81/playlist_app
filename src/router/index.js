@@ -46,6 +46,10 @@ Vue.use(VueRouter)
     path:'/songs/:songId/edit',
     name: 'Song-edit',
     component: EditSong
+  },
+  {
+    path: '*',
+    redirect: 'Songs'
   }
 ]
 

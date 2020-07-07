@@ -8,7 +8,18 @@
                         <v-spacer></v-spacer>
                         <v-tooltip left color= "deep-orange">
                             <template v-slot:activator= "{ on }"> 
-                                <v-btn icon color="white" class="mr-3" v-on="on" :to="{name: 'Song-edit', params: {songId: song.id}}">
+                                <v-btn 
+                                    icon
+                                    color="white"
+                                    class="mr-3"
+                                    v-on="on"
+                                    :to="{
+                                        name: 'Song-edit',
+                                        params () {
+                                            return {songId: song.id
+                                            }
+                                        }
+                                    }">
                                     <v-icon>mdi-pencil</v-icon>
                                 </v-btn>
                             </template>
