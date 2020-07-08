@@ -11,7 +11,7 @@
                                 <v-btn 
                                     icon
                                     color="white"
-                                    class="mr-3"
+                                    class="mx-1"
                                     v-on="on"
                                     :to="{
                                         name: 'Song-edit',
@@ -24,6 +24,21 @@
                                 </v-btn>
                             </template>
                             <span>Edit Song</span>
+                        </v-tooltip>
+                        <v-tooltip bottom color= "deep-orange">
+                            <template v-slot:activator= "{ on }"> 
+                                <v-btn 
+                                    icon
+                                    :color="color_bookmark"
+                                    class="mx-1"
+                                    v-on="on"
+                                    @click="setAsBookmark"
+                                    v-if="isUserLoggedIn"
+                                    >
+                                    <v-icon>mdi-bookmark-check</v-icon>
+                                </v-btn>
+                            </template>
+                            <span>{{Bookmark}}</span>
                         </v-tooltip>
                     </v-toolbar>
                     <v-responsive class="pt-4">
@@ -100,23 +115,43 @@
                     </v-textarea>
                 </v-card>
             </v-col>
-
-            
         </v-row>
     </v-card>
 </template>
 
 <script>
 import SongsService from '@/services/SongsService'
+import {mapState} from 'vuex'
+import BookmarksService from '@/services/BookmarksService'
+
 export default {
     data () {
         return {
-            song: null
+            song: null,
+            color_bookmark: "white",
+            Bookmark: 'Bookmark'
         }
     },
    async mounted() {
-       const songId = this.$store.state.route.params.songId
+        const songId = this.$store.state.route.params.songId
         this.song = (await SongsService.show(songId)).data
+        const bookmark = (await BookmarksService.index({
+            songId: songId,
+            userId: this.$store.state.user.id
+        })).data
+        if(bookmark) {
+            this.color_bookmark = "deep-orange"
+            this.Bookmark = "Un Bookmark"
+        }
+    },
+    computed: {
+        ...mapState([
+            'isUserLoggedIn'
+        ])
+    },
+    methods: {
+        async setAsBookmark () {
+        }
     }
 }
 </script>
