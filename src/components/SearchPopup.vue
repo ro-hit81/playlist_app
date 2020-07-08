@@ -4,6 +4,7 @@
             label="Search"
             placeholder="Search song"
             v-model="search"
+            background-color= "cyan"
             outlined
         >
         </v-text-field>

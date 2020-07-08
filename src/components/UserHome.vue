@@ -1,0 +1,54 @@
+<template>
+    <v-container class="my-6">
+        <!-- <v-card> -->
+            <v-data-table
+                :headers="headers"
+                :items="bookmarks"
+                :items-per-page="5"
+                >
+                <template slot="items" scope="props">
+                    <td class="text-xs-right">
+                        {{props.item.title}}
+                    </td>
+                    <td class="text-xs-right">
+                        {{props.item.artist}}
+                    </td>
+                </template>
+            </v-data-table>
+        <!-- </v-card> -->
+    </v-container>
+</template>
+
+<script>
+import {mapState} from 'vuex'
+import BookmarksService from '@/services/BookmarksService'
+export default {
+    data() {
+        return {
+            headers:[
+                {text: 'Title', value: 'title'},
+                {text: 'Artist', value: 'artist'},
+            ],
+            pagination: {
+                sortBy: 'date',
+                descending: true
+            },
+            bookmarks:[]
+        }
+    },
+    computed: {
+        ...mapState([
+            'isUserLoggedIn',
+            'user'
+        ])
+    },
+    async mounted () {
+        if (this.isUserLoggedIn){
+            this.bookmarks = (await BookmarksService.index({
+                userId: this.user.id
+            })).data
+        }
+    }
+    
+}
+</script>

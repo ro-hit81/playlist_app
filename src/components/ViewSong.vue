@@ -29,7 +29,7 @@
                             <template v-slot:activator= "{ on }"> 
                                 <v-btn 
                                     icon
-                                    color="white"
+                                    color="deep-orange"
                                     class="mx-1"
                                     v-on="on"
                                     @click="setBookmark"
