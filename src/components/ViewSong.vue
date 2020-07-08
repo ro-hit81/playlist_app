@@ -25,20 +25,33 @@
                             </template>
                             <span>Edit Song</span>
                         </v-tooltip>
-                        <v-tooltip bottom color= "deep-orange">
+                        <v-tooltip bottom color= "deep-orange" v-if="isUserLoggedIn && !bookmark">
                             <template v-slot:activator= "{ on }"> 
                                 <v-btn 
                                     icon
-                                    :color="color_bookmark"
+                                    color="white"
                                     class="mx-1"
                                     v-on="on"
-                                    @click="setAsBookmark"
-                                    v-if="isUserLoggedIn"
+                                    @click="setBookmark"
                                     >
-                                    <v-icon>mdi-bookmark-check</v-icon>
+                                    <v-icon>mdi-bookmark</v-icon>
                                 </v-btn>
                             </template>
-                            <span>{{Bookmark}}</span>
+                            <span>Bookmark Song</span>
+                        </v-tooltip>
+                        <v-tooltip bottom color= "deep-orange" v-if="isUserLoggedIn && bookmark">
+                            <template v-slot:activator= "{ on }"> 
+                                <v-btn 
+                                    icon
+                                    color="white"
+                                    class="mx-1"
+                                    v-on="on"
+                                    @click="unsetBookmark"
+                                    >
+                                    <v-icon>mdi-bookmark-off</v-icon>
+                                </v-btn>
+                            </template>
+                            <span>Un Bookmark Song</span>
                         </v-tooltip>
                     </v-toolbar>
                     <v-responsive class="pt-4">
@@ -128,21 +141,24 @@ export default {
     data () {
         return {
             song: null,
-            color_bookmark: "white",
-            Bookmark: 'Bookmark'
+            bookmark: null
         }
     },
    async mounted() {
-        const songId = this.$store.state.route.params.songId
-        this.song = (await SongsService.show(songId)).data
-        const bookmark = (await BookmarksService.index({
-            songId: songId,
-            userId: this.$store.state.user.id
-        })).data
-        if(bookmark) {
-            this.color_bookmark = "deep-orange"
-            this.Bookmark = "Un Bookmark"
-        }
+       if(!this.isUserLoggedIn) {
+           return
+       }
+       try{
+            const songId = this.$store.state.route.params.songId
+            this.song = (await SongsService.show(songId)).data
+
+            this.bookmark = (await BookmarksService.index({
+                songId: songId,
+                userId: this.$store.state.user.id
+            })).data
+       } catch (err) {
+           console.log(err)
+       }
     },
     computed: {
         ...mapState([
@@ -150,8 +166,24 @@ export default {
         ])
     },
     methods: {
-        async setAsBookmark () {
-        }
+        async setBookmark () {
+            try {
+                this.bookmark = (await BookmarksService.post({
+                    songId: this.$store.state.route.params.songId,
+                    userId: this.$store.state.user.id
+                })).data
+            } catch (err) {
+                console.log(err)
+            }
+        },
+        async unsetBookmark () {
+            try {
+                await BookmarksService.delete(this.bookmark.id)
+                this.bookmark = null
+            } catch (err) {
+                console.log(err)
+            }
+        },
     }
 }
 </script>
