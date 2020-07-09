@@ -1,27 +1,26 @@
 <template>
-    <v-container class="my-6">
-        <!-- <v-card> -->
-            <v-data-table
-                :headers="headers"
-                :items="bookmarks"
-                :items-per-page="5"
-                >
-                <template slot="items" scope="props">
-                    <td class="text-xs-right">
-                        {{props.item.title}}
-                    </td>
-                    <td class="text-xs-right">
-                        {{props.item.artist}}
-                    </td>
-                </template>
-            </v-data-table>
-        <!-- </v-card> -->
-    </v-container>
+    <v-card>
+        <v-data-table
+            :headers="headers"
+            :items="bookmarks"
+            :items-per-page="5"
+            >
+            <template slot="items" slot-scope="props">
+                <td class="text-xs-right">
+                    {{props.item.title}}
+                </td>
+                <td class="text-xs-right">
+                    {{props.item.artist}}
+                </td>
+            </template>
+        </v-data-table>
+    </v-card>
 </template>
 
 <script>
 import {mapState} from 'vuex'
 import BookmarksService from '@/services/BookmarksService'
+
 export default {
     data() {
         return {
