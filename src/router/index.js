@@ -3,11 +3,11 @@ import VueRouter from 'vue-router'
 import Home from '@/views/Home.vue'
 import Register from '@/components/Register'
 import Login from '@/components/Login'
-import Songs from '@/components/Songs'
+import Songs from '@/components/Songs/Songs'
 import AddSongs from '@/components/AddSongs'
-import ViewSong from '@/components/ViewSong'
+import ViewSong from '@/components/ViewSong/ViewSong'
 import EditSong from '@/components/EditSong'
-import UserHome from '@/components/UserHome'
+import UserHome from '@/components/Users/UserHome'
 
 
 Vue.use(VueRouter)

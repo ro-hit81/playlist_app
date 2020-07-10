@@ -10,6 +10,8 @@ app.use(morgan('combined'))
 app.use(bodyParser.json())
 app.use(cors())
 
+require('./passport')
+
 app.get('/status', (req, res) => {
     res.send({
         message: 'hello rohit'

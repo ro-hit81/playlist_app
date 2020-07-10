@@ -1,9 +1,12 @@
 <template>
-    <v-card>
+    <v-card class="my-3">
+        <v-toolbar class="cyan lighten-2" dark flat>
+            <v-toolbar-title>Recently Viewed Songs</v-toolbar-title>
+        </v-toolbar>
         <v-data-table
             :headers="headers"
-            :items="bookmarks"
-            :items-per-page="5"
+            :items="histories"
+            :items-per-page="3"
             >
             <template slot="items" slot-scope="props">
                 <td class="text-xs-right">
@@ -19,7 +22,7 @@
 
 <script>
 import {mapState} from 'vuex'
-import BookmarksService from '@/services/BookmarksService'
+import SongHistoryService from '@/services/SongHistoryService'
 
 export default {
     data() {
@@ -29,10 +32,10 @@ export default {
                 {text: 'Artist', value: 'artist'},
             ],
             pagination: {
-                sortBy: 'date',
+                sortBy: 'createdAt',
                 descending: true
             },
-            bookmarks:[]
+            histories: []
         }
     },
     computed: {
@@ -43,9 +46,7 @@ export default {
     },
     async mounted () {
         if (this.isUserLoggedIn){
-            this.bookmarks = (await BookmarksService.index({
-                userId: this.user.id
-            })).data
+            this.histories = (await SongHistoryService.index()).data
         }
     }
     

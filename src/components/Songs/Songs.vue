@@ -46,7 +46,7 @@
 
 <script>
 import SongsService from '@/services/SongsService'
-import SearchPopup from '@/components/SearchPopup'
+import SearchPopup from '@/components/Songs/SearchPopup'
 
 export default {
     data() {
