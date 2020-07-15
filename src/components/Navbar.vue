@@ -1,5 +1,5 @@
 <template>
-    <v-toolbar class="grey darken-3" flat dark>
+    <v-toolbar class="orange darken-4" flat dark>
         <v-btn icon x-large color="cyan" class="mr-1" to="/Home">
             <v-icon>mdi-home</v-icon>
         </v-btn>
