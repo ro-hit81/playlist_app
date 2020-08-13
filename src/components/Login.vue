@@ -3,7 +3,7 @@
         <v-card min-width="100px" max-width="600px" class="mx-3">
             <v-toolbar class="cyan lighten-2" dark flat>
                 <v-spacer></v-spacer>
-                <v-toolbar-title>Enter to App</v-toolbar-title>
+                <v-toolbar-title>Log in to enter:</v-toolbar-title>
                 <v-spacer></v-spacer>
             </v-toolbar>
             <v-form>
